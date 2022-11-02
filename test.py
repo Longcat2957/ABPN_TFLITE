@@ -1,4 +1,5 @@
 import pprint
+import time
 import os
 import numpy as np
 import tensorflow as tf
@@ -34,6 +35,15 @@ class edgeSR(object):
         output = np.squeeze(batched_output, axis=0)
         return output
     
+    def benchmark(self, x:np.ndarray, step:int=10):
+        elapsed = 0.0
+        for i in range(step):
+            start = time.time()
+            self.forward(x)
+            elapsed += time.time() - start
+            time.sleep(0.001)
+        print(f"{step / elapsed}inference/s")
+            
     def saveSRImg(self, x:np.ndarray, name:str="output.jpg"):
         output = self.forward(x)
         try:
@@ -44,8 +54,8 @@ class edgeSR(object):
         
 
 if __name__ == "__main__":
-    sr_engine = edgeSR("base7_D4C28_bs16ps64_lr1e-3_qat_time.tflite")
-    # sr_engine.get_details()
+    sr_engine = edgeSR("base7_D4C28_bs16ps64_lr1e-3.tflite")
+    sr_engine.get_details()
     x = cv2.imread("input_1.jpg", cv2.IMREAD_COLOR)
     sr_engine.saveSRImg(x)
     
