@@ -58,4 +58,5 @@ if __name__ == "__main__":
     sr_engine.get_details()
     x = cv2.imread("input_1.jpg", cv2.IMREAD_COLOR)
     sr_engine.saveSRImg(x)
+    sr_engine.benchmark(x)
     
