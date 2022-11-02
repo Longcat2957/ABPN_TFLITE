@@ -54,7 +54,7 @@ class edgeSR(object):
         
 
 if __name__ == "__main__":
-    sr_engine = edgeSR("base7_D4C28_bs16ps64_lr1e-3.tflite")
+    sr_engine = edgeSR("base7_D4C28_bs16ps64_lr1e-3_qat_time.tflite")
     sr_engine.get_details()
     x = cv2.imread("input_1.jpg", cv2.IMREAD_COLOR)
     sr_engine.saveSRImg(x)
