@@ -8,7 +8,7 @@ from utils import center_crop, scale_image
 from functools import partial
 
 class edgeSR(object):
-    def __init__(self, tflite_path:str, preprcoess:str="centercrop"):
+    def __init__(self, tflite_path:str, preprcoess:str="resize"):
         if not os.path.exists(tflite_path):
             raise FileNotFoundError(tflite_path)
         try:
@@ -21,6 +21,8 @@ class edgeSR(object):
         self.input_size = (self.details["input_details"][0]['shape'][2], self.details["input_details"][0]['shape'][1])
         if preprcoess == "centercrop":
             self.preprocess = partial(center_crop, dim=self.input_size)
+        if preprcoess == "resize":
+            self.preprocess = partial(cv2.resize, dsize=self.input_size)
         
     def get_details(self):
         pprint.pprint(self.details)
@@ -32,7 +34,6 @@ class edgeSR(object):
         """
         x:np.ndarray -> np.ndarray
         """
-        x = self.preprocess(x)
         self.interpreter.allocate_tensors()
         batched_input = np.expand_dims(x, axis=0)
         self.interpreter.set_tensor(self.details["input_details"][0]['index'], batched_input)
@@ -48,9 +49,9 @@ class edgeSR(object):
             self.forward(x)
             elapsed += time.time() - start
             time.sleep(0.001)
-        print(f"# BENCHMARK RESULTS >> {step / elapsed:.3f} frame/s")
+        print(f"# BENCHMARK RESULTS >> {step / elapsed:.3f} frames/s")
             
-    def saveSRImg(self, x:np.ndarray, name:str="./output/output.jpg"):
+    def saveSRImg(self, x:np.ndarray, name="./output/output.jpg"):
         output = self.forward(x)
         try:
             cv2.imwrite(name, output)
