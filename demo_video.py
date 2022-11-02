@@ -6,7 +6,7 @@ from benchmark_single_img import edgeSR
 from utils import scale_image
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "--tflite", type=str, default="./tflite/edgeSR_120_360.tflite"
+    "--tflite", type=str, default="./tflite/edgeSR_240_720.tflite"
 )
 parser.add_argument(
     "--video", type=int, default=0
