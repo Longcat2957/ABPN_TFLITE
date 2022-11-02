@@ -42,7 +42,7 @@ class edgeSR(object):
             self.forward(x)
             elapsed += time.time() - start
             time.sleep(0.001)
-        print(f"{step / elapsed}inference/s")
+        print(f"# BENCHMARK RESULTS >> {step / elapsed:.3f} frame/s")
             
     def saveSRImg(self, x:np.ndarray, name:str="output.jpg"):
         output = self.forward(x)
