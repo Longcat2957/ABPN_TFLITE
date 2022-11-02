@@ -31,7 +31,8 @@ if __name__ == "__main__":
             break
         preprocessed = model.preprocess(image)
         sr = model.forward(preprocessed)
-        cv2.imshow("demo_app", sr)
+        cv2.imshow("lr", image)
+        cv2.imshow("sr", sr)
         key = cv2.waitKey(1)
         if key == 27:
             break
