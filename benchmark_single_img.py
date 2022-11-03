@@ -44,9 +44,10 @@ class edgeSR(object):
     
     def benchmark(self, x:np.ndarray, step:int=10):
         elapsed = 0.0
+        preprcessed = self.preprocess(x)
         for i in range(step):
             start = time.time()
-            self.forward(x)
+            self.forward(preprcessed)
             elapsed += time.time() - start
             time.sleep(0.001)
         print(f"# BENCHMARK RESULTS >> {step / elapsed:.3f} frames/s")
