@@ -6,7 +6,7 @@ from benchmark_single_img import edgeSR
 from utils import scale_image
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "--tflite", type=str, default="./tflite/edgeSR_240_720.tflite"
+    "--tflite", type=str, default="./tflite/edgeSR_80_240.tflite"
 )
 parser.add_argument(
     "--video", type=int, default=0
@@ -20,7 +20,8 @@ if __name__ == "__main__":
     started = time.time()
     last_logged = time.time()
     frame_count = 0
-    sample_video_path = os.path.join("./sample_videos", f"sample_video_{opt.video}.mp4")
+    # sample_video_path = os.path.join("./sample_videos", f"sample_video_{opt.video}.mp4")
+    sample_video_path = "./sample_videos/anime_142_80.mp4"
     print(f"# input video file name = {sample_video_path}")
     cap = cv2.VideoCapture(sample_video_path)
 
