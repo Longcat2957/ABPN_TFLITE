@@ -31,7 +31,9 @@ if __name__ == "__main__":
         if not ret:
             break
         preprocessed = model.preprocess(image)
+        bicubic = scale_image(image, factor=3.0)
         sr = model.forward(preprocessed)
+        cv2.imshow("bicubic", bicubic)
         cv2.imshow("lr", image)
         cv2.imshow("sr", sr)
         key = cv2.waitKey(1)
